@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, NavLink, Route, Routes, useLocation } from 're
 import { AuthProvider } from './AuthContext'
 import { useAuth } from './authContextValue'
 import LoginPage from './LoginPage'
+import DashboardPage from './DashboardPage'
 import './App.css'
 
 const navigation = [
@@ -55,7 +56,7 @@ function AppLayout() {
         <div className="content-area">
           <Routes>
             <Route path="/connexion" element={<LoginPage />} />
-            <Route path="/" element={<RequireAuth><PagePlaceholder title="Bonjour 👋" description="Votre espace de gestion de la clinique est prêt." /></RequireAuth>} />
+            <Route path="/" element={<RequireAuth><DashboardPage /></RequireAuth>} />
             <Route path="/patients" element={<RequireAuth><PagePlaceholder title="Patients" description="Retrouvez et gérez les dossiers de vos patients." /></RequireAuth>} />
             <Route path="/rendez-vous" element={<RequireAuth><PagePlaceholder title="Rendez-vous" description="Consultez et organisez les rendez-vous de la clinique." /></RequireAuth>} />
             <Route path="/patients/:id" element={<RequireAuth><PagePlaceholder title="Dossier patient" description="Consultez les informations et les rendez-vous du patient." /></RequireAuth>} />
