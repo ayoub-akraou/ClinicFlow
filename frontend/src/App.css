@@ -29,12 +29,56 @@
 .topbar-user strong { font-size: 10px; }
 .topbar-user span:not(.chevron) { font-size: 9px; }
 .chevron { margin-left: 5px; color: #99a4a6; font-size: 17px; }
+.user-button { padding: 0; border: 0; background: transparent; text-align: left; }
+.user-button:hover .avatar { background: #d7eee6; }
+.login-page { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; background: #fff; }
+.login-visual { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh; overflow: hidden; padding: 38px 54px 34px; color: white; background: #135d52; }
+.login-visual::before, .login-visual::after { position: absolute; content: ''; border: 1px solid rgb(255 255 255 / 10%); border-radius: 50%; pointer-events: none; }
+.login-visual::before { width: 610px; height: 610px; right: -300px; top: 15%; }
+.login-visual::after { width: 430px; height: 430px; right: -210px; top: 26%; }
+.login-brand { position: relative; z-index: 1; margin: 0; color: white; }
+.login-brand > span:last-child > span { color: #91d5c0; }
+.login-brand .brand-mark { color: #165f52; background: #bde7d8; }
+.login-message { position: relative; z-index: 1; max-width: 490px; margin: auto 0; padding: 80px 0; }
+.login-message .eyebrow { color: #9cdbca; }
+.login-message h1 { margin: 17px 0 16px; color: white; font-size: clamp(34px, 4vw, 52px); line-height: 1.15; letter-spacing: -1.8px; }
+.login-message p { max-width: 390px; color: #c2ded8; font-size: 14px; line-height: 1.8; }
+.visual-note { position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; color: #cae4df; font-size: 11px; }
+.visual-note span { color: #a2ddc8; font-size: 19px; }
+.login-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 45px 38px; }
+.login-form-wrap { width: 100%; max-width: 370px; }
+.login-form-wrap > .eyebrow { color: #368e79; }
+.login-form-wrap h2 { margin: 12px 0 7px; color: #24343a; font: 700 27px Manrope, sans-serif; letter-spacing: -.8px; }
+.login-subtitle { margin-bottom: 32px; color: #89969a; font-size: 12px; }
+.login-form { display: grid; gap: 10px; }
+.login-form label { margin-top: 7px; color: #48585c; font-size: 11px; font-weight: 700; }
+.login-form input { width: 100%; height: 45px; padding: 0 13px; color: #29383c; border: 1px solid #e0e7e4; border-radius: 6px; background: white; font-size: 12px; }
+.login-form input::placeholder { color: #adb6b7; }
+.login-form input:focus { border-color: #5aa994; outline: 3px solid #e5f3ee; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 39px; padding: 0 15px; border: 0; border-radius: 6px; font-size: 11px; font-weight: 700; transition: .15s ease; }
+.button-primary { color: white; background: #147b68; }
+.button-primary:hover { background: #0c6b59; }
+.button:disabled { cursor: wait; opacity: .7; }
+.login-submit { justify-content: space-between; height: 45px; margin-top: 12px; padding: 0 15px; font-size: 12px; }
+.login-submit span { font-size: 17px; }
+.form-error { padding: 10px 12px; color: #a34539; border: 1px solid #f2d9d4; border-radius: 6px; background: #fff7f5; font-size: 11px; }
+.login-help { margin-top: 22px; color: #9aa4a6; font-size: 10px; line-height: 1.7; }
+.login-copyright { margin-top: auto; color: #a2abad; font-size: 10px; }
+.loading-screen { display: grid; min-height: 100vh; place-items: center; color: #688079; font-size: 13px; }
 .content-area { max-width: 1440px; margin: 0 auto; padding: 45px 46px; }
 .page-placeholder { min-height: 260px; padding: 32px; border: 1px solid var(--line); border-radius: 12px; background: white; }
 .eyebrow { color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 1.4px; }
 h1 { margin: 10px 0 8px; color: #213137; font: 700 25px Manrope, sans-serif; letter-spacing: -.65px; }
 .page-placeholder p { color: var(--muted); font-size: 13px; }
 @media (max-width: 760px) {
+  .login-page { grid-template-columns: 1fr; }
+  .login-visual { min-height: 235px; padding: 20px 23px; }
+  .login-brand { margin: 0; }
+  .login-message { padding: 26px 0 16px; }
+  .login-message h1 { margin: 8px 0; font-size: 25px; }
+  .login-message p, .visual-note { display: none; }
+  .login-panel { min-height: calc(100vh - 235px); padding: 35px 25px 25px; }
+  .login-copyright { margin-top: 45px; }
   .sidebar { width: 66px; padding: 20px 10px 14px; }
   .brand { justify-content: center; margin: 2px 0 38px; }
   .brand > span:last-child, .workspace-label, .nav-link:not(.active)::after, .nav-link { font-size: 0; }

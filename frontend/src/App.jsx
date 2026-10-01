@@ -1,4 +1,7 @@
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router'
+import { BrowserRouter, Navigate, NavLink, Route, Routes, useLocation } from 'react-router'
+import { AuthProvider } from './AuthContext'
+import { useAuth } from './authContextValue'
+import LoginPage from './LoginPage'
 import './App.css'
 
 const navigation = [
@@ -18,6 +21,7 @@ function PagePlaceholder({ title, description }) {
 }
 
 function AppLayout() {
+  const { user, logout } = useAuth()
   return (
     <div className="app-shell">
       <aside className="sidebar">
@@ -45,15 +49,17 @@ function AppLayout() {
           <div className="breadcrumbs"><span>ClinicFlow</span><span className="crumb-divider">/</span><strong>Vue générale</strong></div>
           <div className="topbar-actions">
             <button className="icon-button" type="button" aria-label="Notifications">♧<i /></button>
-            <div className="topbar-user"><div className="avatar">AM</div><div><strong>Admin</strong><span>Administrateur</span></div><span className="chevron">⌄</span></div>
+          <button className="topbar-user user-button" type="button" onClick={logout} title="Se déconnecter"><div className="avatar">{user?.fullName?.slice(0, 2).toUpperCase() || 'CF'}</div><div><strong>{user?.fullName || 'Utilisateur'}</strong><span>{user?.role === 'admin' ? 'Administrateur' : 'Équipe médicale'}</span></div><span className="chevron">↪</span></button>
           </div>
         </header>
         <div className="content-area">
           <Routes>
-            <Route path="/" element={<PagePlaceholder title="Bonjour 👋" description="Votre espace de gestion de la clinique est prêt." />} />
-            <Route path="/patients" element={<PagePlaceholder title="Patients" description="Retrouvez et gérez les dossiers de vos patients." />} />
-            <Route path="/rendez-vous" element={<PagePlaceholder title="Rendez-vous" description="Consultez et organisez les rendez-vous de la clinique." />} />
-            <Route path="/patients/:id" element={<PagePlaceholder title="Dossier patient" description="Consultez les informations et les rendez-vous du patient." />} />
+            <Route path="/connexion" element={<LoginPage />} />
+            <Route path="/" element={<RequireAuth><PagePlaceholder title="Bonjour 👋" description="Votre espace de gestion de la clinique est prêt." /></RequireAuth>} />
+            <Route path="/patients" element={<RequireAuth><PagePlaceholder title="Patients" description="Retrouvez et gérez les dossiers de vos patients." /></RequireAuth>} />
+            <Route path="/rendez-vous" element={<RequireAuth><PagePlaceholder title="Rendez-vous" description="Consultez et organisez les rendez-vous de la clinique." /></RequireAuth>} />
+            <Route path="/patients/:id" element={<RequireAuth><PagePlaceholder title="Dossier patient" description="Consultez les informations et les rendez-vous du patient." /></RequireAuth>} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
       </main>
@@ -61,6 +67,14 @@ function AppLayout() {
   )
 }
 
+function RequireAuth({ children }) {
+  const { user, loading } = useAuth()
+  const location = useLocation()
+  if (loading) return <div className="loading-screen">Chargement de votre espace…</div>
+  if (!user) return <Navigate to="/connexion" state={{ from: location.pathname }} replace />
+  return children
+}
+
 export default function App() {
-  return <BrowserRouter><AppLayout /></BrowserRouter>
+  return <BrowserRouter><AuthProvider><Routes><Route path="/connexion" element={<LoginPage />} /><Route path="*" element={<AppLayout />} /></Routes></AuthProvider></BrowserRouter>
 }
