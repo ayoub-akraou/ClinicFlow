@@ -172,6 +172,41 @@
 .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 5px; }
 .button-secondary { color: #667579; border: 1px solid #e2e8e5; background: #fff; }
 .button-secondary:hover { background: #f7f9f8; }
+.patient-details-page { display: grid; gap: 14px; }
+.back-link { width: fit-content; margin-bottom: 3px; color: #748588; font-size: 10px; text-decoration: none; }
+.back-link:hover, .small-link:hover { color: var(--green); }
+.detail-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; margin-bottom: 2px; }
+.detail-heading .eyebrow { color: #95a29f; font-size: 9px; }
+.detail-heading h1 { margin: 7px 0 5px; }
+.detail-heading p { color: #929fa2; font-size: 11px; }
+.detail-heading .button { text-decoration: none; }
+.profile-card { display: flex; align-items: center; justify-content: space-between; min-height: 91px; padding: 17px 20px; }
+.profile-main { display: flex; align-items: center; gap: 13px; }
+.profile-avatar { display: grid; place-items: center; width: 48px; height: 48px; color: #1e7564; border-radius: 14px; background: #e5f2ec; font: 700 14px Manrope, sans-serif; }
+.profile-main h2 { margin: 0 0 5px; color: #344449; font: 700 15px Manrope, sans-serif; }
+.profile-meta { color: #9aa6a7; font-size: 9px; }
+.record-badge { display: flex; align-items: center; gap: 6px; padding: 6px 9px; color: #4a917a; border-radius: 20px; background: #ecf6f1; font-size: 9px; }
+.record-badge span { width: 6px; height: 6px; border-radius: 50%; background: #5aac8a; }
+.detail-info-panel, .history-panel { padding: 19px 20px; }
+.info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 19px 25px; margin-top: 20px; }
+.info-item { display: grid; gap: 6px; }
+.info-item span { color: #9aa6a7; font-size: 9px; }
+.info-item strong { color: #4c5b60; font-size: 11px; font-weight: 600; }
+.history-panel .panel-heading { margin-bottom: 14px; }
+.small-link { color: #287c69; font-size: 9px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.empty-history { display: grid; justify-items: center; gap: 7px; padding: 30px 10px 23px; border-top: 1px solid #f0f2f1; color: #9aa6a7; text-align: center; }
+.empty-history > span { display: grid; place-items: center; width: 38px; height: 38px; margin-bottom: 3px; color: #5d9b88; border-radius: 12px; background: #edf6f2; font-size: 19px; }
+.empty-history strong { color: #5d6c70; font-size: 10px; }
+.empty-history p { font-size: 9px; }
+.history-table { width: 100%; border-collapse: collapse; text-align: left; }
+.history-table th { height: 31px; padding: 0 11px; color: #99a4a5; background: #fafbfa; font-size: 8px; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+.history-table td { padding: 12px 11px; color: #68777b; border-top: 1px solid #f0f2f1; font-size: 9px; }
+.status-badge { display: inline-flex; padding: 4px 7px; border-radius: 20px; font-size: 8px; }
+.status-badge.pending { color: #a47734; background: #fbf3e3; }
+.status-badge.confirmed { color: #377d69; background: #eaf5ef; }
+.status-badge.cancelled { color: #a75a51; background: #fbefed; }
+.loading-panel, .details-error { display: grid; min-height: 240px; place-content: center; justify-items: center; gap: 15px; color: #899799; border: 1px solid var(--line); border-radius: 9px; background: #fff; font-size: 12px; }
+.details-error p { color: #a34539; }
 .content-area { max-width: 1440px; margin: 0 auto; padding: 45px 46px; }
 .page-placeholder { min-height: 260px; padding: 32px; border: 1px solid var(--line); border-radius: 12px; background: white; }
 .eyebrow { color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 1.4px; }
@@ -211,5 +246,11 @@ h1 { margin: 10px 0 8px; color: #213137; font: 700 25px Manrope, sans-serif; let
   .pagination-footer { align-items: flex-start; flex-direction: column; }
   .pagination-controls { width: 100%; justify-content: space-between; }
   .form-row { grid-template-columns: 1fr; }
+  .detail-heading { align-items: flex-start; flex-direction: column; }
+  .detail-heading .button { align-self: stretch; }
+  .profile-card { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .info-grid { grid-template-columns: 1fr 1fr; gap: 17px 12px; }
+  .history-panel .panel-heading { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .history-table { min-width: 610px; }
   .page-placeholder { padding: 22px; }
 }

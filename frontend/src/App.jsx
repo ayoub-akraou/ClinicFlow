@@ -4,6 +4,7 @@ import { useAuth } from './authContextValue'
 import LoginPage from './LoginPage'
 import DashboardPage from './DashboardPage'
 import PatientsPage from './PatientsPage'
+import PatientDetailsPage from './PatientDetailsPage'
 import './App.css'
 
 const navigation = [
@@ -60,7 +61,7 @@ function AppLayout() {
             <Route path="/" element={<RequireAuth><DashboardPage /></RequireAuth>} />
             <Route path="/patients" element={<RequireAuth><PatientsPage /></RequireAuth>} />
             <Route path="/rendez-vous" element={<RequireAuth><PagePlaceholder title="Rendez-vous" description="Consultez et organisez les rendez-vous de la clinique." /></RequireAuth>} />
-            <Route path="/patients/:id" element={<RequireAuth><PagePlaceholder title="Dossier patient" description="Consultez les informations et les rendez-vous du patient." /></RequireAuth>} />
+            <Route path="/patients/:id" element={<RequireAuth><PatientDetailsPage /></RequireAuth>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
