@@ -5,6 +5,7 @@ import LoginPage from './LoginPage'
 import DashboardPage from './DashboardPage'
 import PatientsPage from './PatientsPage'
 import PatientDetailsPage from './PatientDetailsPage'
+import AppointmentsPage from './AppointmentsPage'
 import './App.css'
 
 const navigation = [
@@ -12,16 +13,6 @@ const navigation = [
   { to: '/patients', label: 'Patients', icon: '♙' },
   { to: '/rendez-vous', label: 'Rendez-vous', icon: '▦' },
 ]
-
-function PagePlaceholder({ title, description }) {
-  return (
-    <section className="page-placeholder">
-      <span className="eyebrow">CLINICFLOW</span>
-      <h1>{title}</h1>
-      <p>{description}</p>
-    </section>
-  )
-}
 
 function AppLayout() {
   const { user, logout } = useAuth()
@@ -60,7 +51,7 @@ function AppLayout() {
             <Route path="/connexion" element={<LoginPage />} />
             <Route path="/" element={<RequireAuth><DashboardPage /></RequireAuth>} />
             <Route path="/patients" element={<RequireAuth><PatientsPage /></RequireAuth>} />
-            <Route path="/rendez-vous" element={<RequireAuth><PagePlaceholder title="Rendez-vous" description="Consultez et organisez les rendez-vous de la clinique." /></RequireAuth>} />
+            <Route path="/rendez-vous" element={<RequireAuth><AppointmentsPage /></RequireAuth>} />
             <Route path="/patients/:id" element={<RequireAuth><PatientDetailsPage /></RequireAuth>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
