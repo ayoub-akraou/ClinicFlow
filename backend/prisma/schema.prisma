@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  admin
+  staff
+
+  @@map("user_role")
+}
+
+enum AppointmentStatus {
+  pending
+  confirmed
+  cancelled
+
+  @@map("appointment_status")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  fullName     String        @map("full_name") @db.VarChar(120)
+  email        String        @unique @db.VarChar(255)
+  passwordHash String        @map("password_hash") @db.VarChar(255)
+  role         UserRole      @default(staff)
+  appointments Appointment[]
+
+  @@map("users")
+}
+
+model Patient {
+  id           Int           @id @default(autoincrement())
+  fullName     String        @map("full_name") @db.VarChar(120)
+  cin          String        @unique @db.VarChar(30)
+  phone        String        @db.VarChar(30)
+  birthDate    DateTime      @map("birth_date") @db.Date
+  address      String?       @db.VarChar(255)
+  appointments Appointment[]
+
+  @@index([fullName])
+  @@index([phone])
+  @@map("patients")
+}
+
+model Appointment {
+  id              Int               @id @default(autoincrement())
+  patientId       Int               @map("patient_id")
+  createdBy       Int               @map("created_by")
+  appointmentDate DateTime          @map("appointment_date") @db.Timestamptz(3)
+  status          AppointmentStatus @default(pending)
+  reason          String            @db.VarChar(500)
+  notes           String?
+  patient         Patient           @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  creator         User              @relation(fields: [createdBy], references: [id], onDelete: Restrict)
+
+  @@index([patientId, appointmentDate, status])
+  @@index([appointmentDate, status])
+  @@index([createdBy])
+  @@map("appointments")
+}
