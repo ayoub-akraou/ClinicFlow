@@ -1,6 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL || '/api'
 
-export async function apiRequest(path, { token, ...options } = {}) {
+export async function apiRequest(path, { token, withMeta = false, ...options } = {}) {
   const headers = new Headers(options.headers || {})
   if (options.body && !(options.body instanceof FormData)) {
     headers.set('Content-Type', 'application/json')
@@ -12,5 +12,5 @@ export async function apiRequest(path, { token, ...options } = {}) {
   if (!response.ok) {
     throw new Error(payload.error?.message || 'Une erreur est survenue. Réessayez.')
   }
-  return payload.data
+  return withMeta ? payload : payload.data
 }
