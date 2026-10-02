@@ -1,13 +1,13 @@
 # ClinicFlow backend
 
-Backend REST de ClinicFlow, basé sur l'ERD du projet : `users`, `patients` et `appointments`. Les noms des champs SQL restent en `snake_case` et les relations sont celles du diagramme.
+API REST de ClinicFlow, basée sur l’ERD du projet : `users`, `patients` et `appointments`.
 
 ## Prérequis
 
 - Node.js et npm
 - PostgreSQL démarré, avec une base vide nommée `clinicflow`
 
-Si la base n'existe pas encore, crée-la dans pgAdmin ou avec le compte PostgreSQL qui t'a été configuré :
+Si la base n’existe pas encore, crée-la dans pgAdmin ou avec le compte PostgreSQL configuré :
 
 ```bash
 psql -U postgres -h localhost -c "CREATE DATABASE clinicflow;"
@@ -22,7 +22,7 @@ npm install
 cp .env.example .env
 ```
 
-Ouvre `.env` et remplace `your_password` par le mot de passe de ton utilisateur PostgreSQL. Remplace aussi `JWT_SECRET` par une chaîne privée aléatoire d'au moins 32 caractères. Ne partage pas le contenu de `.env`.
+Dans `.env`, remplace `your_password` par le mot de passe de ton utilisateur PostgreSQL. Remplace aussi `JWT_SECRET` par une chaîne privée aléatoire d’au moins 32 caractères. Ne partage pas le contenu de `.env`.
 
 ## Préparer la base
 
@@ -34,21 +34,22 @@ npm run db:seed
 
 Les données de démonstration créent un administrateur (`admin@clinicflow.local`) et deux comptes staff (`staff1@clinicflow.local`, `staff2@clinicflow.local`). Leur mot de passe est `ClinicFlow123!`. Ce sont des identifiants locaux de démonstration : change-les avant toute utilisation réelle.
 
-## Démarrer l'API
+## Démarrer l’API
 
 ```bash
 npm run dev
 ```
 
-L'API écoute sur `http://localhost:3000`. `GET /api/health` permet de vérifier que le serveur répond.
+L’API écoute sur `http://localhost:3000`. `GET /api/health` permet de vérifier que le serveur répond.
 
 ## Routes
 
-Toutes les routes sauf `GET /api/health` et `POST /api/auth/login` nécessitent l'en-tête `Authorization: Bearer <token>`.
+Toutes les routes sauf `GET /api/health`, `POST /api/auth/login` et `POST /api/auth/register` nécessitent l’en-tête `Authorization: Bearer <token>`.
 
 | Méthode | Route | Fonction |
 | --- | --- | --- |
-| `POST` | `/api/auth/login` | Connexion et obtention d'un JWT |
+| `POST` | `/api/auth/login` | Connexion et obtention d’un JWT |
+| `POST` | `/api/auth/register` | Créer un compte staff et obtenir un JWT |
 | `GET` | `/api/auth/me` | Utilisateur connecté |
 | `GET` | `/api/patients` | Liste paginée, recherche `?search=` |
 | `POST` | `/api/patients` | Créer un patient |
@@ -60,4 +61,6 @@ Toutes les routes sauf `GET /api/health` et `POST /api/auth/login` nécessitent 
 | `PATCH` | `/api/appointments/:id/status` | Modifier le statut |
 | `GET` | `/api/dashboard` | Statistiques du tableau de bord |
 
-La suppression d'un patient supprime aussi ses rendez-vous (cascade conforme à la relation de l'ERD). Les comptes utilisateurs ne sont pas supprimés par cascade afin de préserver les références `created_by`.
+L’inscription publique accepte `fullName`, `email` et `password`. Elle crée toujours un compte `staff` ; le client ne peut pas choisir le rôle.
+
+La suppression d’un patient supprime aussi ses rendez-vous (cascade conforme à la relation de l’ERD). Les comptes utilisateurs ne sont pas supprimés par cascade afin de préserver les références `created_by`.
