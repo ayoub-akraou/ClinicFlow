@@ -9,6 +9,12 @@ const loginBody = Joi.object({
   password: Joi.string().min(8).max(100).required(),
 });
 
+const registerBody = Joi.object({
+  fullName: Joi.string().trim().min(2).max(120).required(),
+  email: Joi.string().trim().lowercase().email({ tlds: { allow: false } }).max(255).required(),
+  password: Joi.string().min(8).max(100).required(),
+});
+
 const patientBody = Joi.object({
   fullName: Joi.string().trim().min(2).max(120).required(),
   cin: Joi.string().trim().min(2).max(30).required(),
@@ -67,6 +73,7 @@ const appointmentStatusBody = Joi.object({
 module.exports = {
   idParams,
   loginBody,
+  registerBody,
   patientBody,
   patientUpdateBody,
   patientListQuery,
