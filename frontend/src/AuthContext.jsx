@@ -40,12 +40,23 @@ export function AuthProvider({ children }) {
     return result.user
   }
 
+  async function register(fullName, email, password) {
+    const result = await apiRequest('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({ fullName, email, password }),
+    })
+    localStorage.setItem(TOKEN_KEY, result.token)
+    setToken(result.token)
+    setUser(result.user)
+    return result.user
+  }
+
   function logout() {
     localStorage.removeItem(TOKEN_KEY)
     setToken(null)
     setUser(null)
   }
 
-  const value = useMemo(() => ({ token, user, loading, login, logout }), [token, user, loading])
+  const value = useMemo(() => ({ token, user, loading, login, register, logout }), [token, user, loading])
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

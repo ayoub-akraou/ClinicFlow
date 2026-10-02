@@ -31,6 +31,7 @@ npm run build
 ## Pages principales
 
 - `/connexion` : connexion et session JWT
+- `/inscription` : création d’un compte staff
 - `/` : statistiques de la clinique
 - `/patients` : recherche, pagination, création, modification et suppression admin
 - `/patients/:id` : dossier et rendez-vous du patient

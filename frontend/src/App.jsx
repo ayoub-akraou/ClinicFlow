@@ -6,6 +6,7 @@ import DashboardPage from './DashboardPage'
 import PatientsPage from './PatientsPage'
 import PatientDetailsPage from './PatientDetailsPage'
 import AppointmentsPage from './AppointmentsPage'
+import RegisterPage from './RegisterPage'
 import './App.css'
 
 const navigation = [
@@ -49,6 +50,7 @@ function AppLayout() {
         <div className="content-area">
           <Routes>
             <Route path="/connexion" element={<LoginPage />} />
+            <Route path="/inscription" element={<RegisterPage />} />
             <Route path="/" element={<RequireAuth><DashboardPage /></RequireAuth>} />
             <Route path="/patients" element={<RequireAuth><PatientsPage /></RequireAuth>} />
             <Route path="/rendez-vous" element={<RequireAuth><AppointmentsPage /></RequireAuth>} />
@@ -70,5 +72,5 @@ function RequireAuth({ children }) {
 }
 
 export default function App() {
-  return <BrowserRouter><AuthProvider><Routes><Route path="/connexion" element={<LoginPage />} /><Route path="*" element={<AppLayout />} /></Routes></AuthProvider></BrowserRouter>
+  return <BrowserRouter><AuthProvider><Routes><Route path="/connexion" element={<LoginPage />} /><Route path="/inscription" element={<RegisterPage />} /><Route path="*" element={<AppLayout />} /></Routes></AuthProvider></BrowserRouter>
 }

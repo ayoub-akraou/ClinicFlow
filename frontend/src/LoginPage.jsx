@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Navigate, useLocation, useNavigate } from 'react-router'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router'
 import { useAuth } from './authContextValue'
 
 export default function LoginPage() {
@@ -47,6 +47,7 @@ export default function LoginPage() {
             {error && <p className="form-error" role="alert">{error}</p>}
             <button className="button button-primary login-submit" type="submit" disabled={submitting || loading}>{submitting ? 'Connexion…' : 'Se connecter'}<span aria-hidden="true">→</span></button>
           </form>
+          <p className="auth-switch">Vous n’avez pas encore de compte ? <Link to="/inscription">Créer un compte</Link></p>
           <p className="login-help">Besoin d’aide ? Contactez l’administrateur de votre clinique.</p>
         </div>
         <span className="login-copyright">© 2026 ClinicFlow · Gestion de clinique</span>
